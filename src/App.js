@@ -5,7 +5,6 @@ import Gallery from './components/Gallery';
 import ContactForm from './components/Contact';
 
 
-
 function App() {
   const [categories] = useState([
     {
