@@ -11,8 +11,6 @@ function ContactForm() {
   };
 
   function handleChange(e) {
-    setFormState({ ...formState, [e.target.name]: e.target.value })
-
     if (e.target.name === 'email') {
       const isValid = validateEmail(e.target.value);
       // isValid conditional statement
@@ -28,6 +26,9 @@ function ContactForm() {
         setErrorMessage('');
       }
     }
+    if (!errorMessage) {
+      setFormState({ ...formState, [e.target.name]: e.target.value })
+    }
   };
 
   return (
@@ -36,16 +37,21 @@ function ContactForm() {
       <form id="contact-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>
-          <input type="text" name="name" defaultValue={name} onChange={handleChange} />
+          <input type="text" name="name" defaultValue={name} onBlur={handleChange} />
         </div>
         <div>
           <label htmlFor="email">Email address:</label>
-          <input type="email" defaultValue={email} name="email" onChange={handleChange} />
+          <input type="email" defaultValue={email} name="email" onBlur={handleChange} />
         </div>
         <div>
           <label htmlFor="message">Message:</label>
-          <textarea name="message" defaultValue={message} onChange={handleChange} rows="5" />
+          <textarea name="message" defaultValue={message} onBlur={handleChange} rows="5" />
         </div>
+        {errorMessage && (
+          <div>
+            <p className="error-text">{errorMessage}</p>
+          </div>
+        )}
         <button type="submit">Submit</button>
       </form>
     </section>
